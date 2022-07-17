@@ -12,9 +12,11 @@ import UIKit
 class GameViewController: UIViewController {
     
     var res: VideoRes?;
+    var score: Int?;
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.score = 0;
     
         do {
             // Do any additional setup after loading the view.
@@ -33,5 +35,6 @@ class GameViewController: UIViewController {
         if player!.isPlaying {
             score.scoreSong(gameData: self.res!.model_coord, touches: touches)
         }
+        self.score! += score.score
     }
 }
