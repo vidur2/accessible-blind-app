@@ -3,7 +3,6 @@ package videogethandler
 import (
 	"bytes"
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -61,17 +60,7 @@ func GetVideo(v types.VideoReq) (string, error) {
 		panic(err)
 	}
 
-	retVal := types.VideoRes{
-		Base64Url: converted,
-	}
-
-	final, err := json.Marshal(retVal)
-
-	if err != nil {
-		return "", err
-	}
-
-	return string(final), nil
+	return converted, nil
 }
 
 func convertToBuffer(s io.ReadCloser) (string, bytes.Buffer) {
