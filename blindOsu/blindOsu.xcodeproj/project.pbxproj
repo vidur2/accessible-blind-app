@@ -21,6 +21,7 @@
 		AB9A3621286BF864004135EC /* blindOsuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9A3620286BF864004135EC /* blindOsuUITestsLaunchTests.swift */; };
 		AB9A362E286BF887004135EC /* YoutubeInter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9A362D286BF887004135EC /* YoutubeInter.swift */; };
 		AB9D72DC287A0088007E0F79 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9D72DB287A0088007E0F79 /* AVFoundation.framework */; };
+		ABBEE56D28846FBB0092F8DC /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEE56C28846FBB0092F8DC /* StateManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		AB9A3620286BF864004135EC /* blindOsuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blindOsuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AB9A362D286BF887004135EC /* YoutubeInter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeInter.swift; sourceTree = "<group>"; };
 		AB9D72DB287A0088007E0F79 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		ABBEE56C28846FBB0092F8DC /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				AB9A360B286BF864004135EC /* Info.plist */,
 				AB9A362D286BF887004135EC /* YoutubeInter.swift */,
 				AB2C67C0287CE48D007F6540 /* SongScoreUtil.swift */,
+				ABBEE56C28846FBB0092F8DC /* StateManager.swift */,
 				AB2C67C8287DB3F4007F6540 /* ConfigState.swift */,
 				AB2C67CA287DB489007F6540 /* GameViewController.swift */,
 			);
@@ -240,7 +243,6 @@
 			);
 			mainGroup = AB9A35F1286BF860004135EC;
 			packageReferences = (
-				AB9A3630286D02FF004135EC /* XCRemoteSwiftPackageReference "YoutubeDL-iOS" */,
 			);
 			productRefGroup = AB9A35FB286BF861004135EC /* Products */;
 			projectDirPath = "";
@@ -286,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB2C67CB287DB489007F6540 /* GameViewController.swift in Sources */,
+				ABBEE56D28846FBB0092F8DC /* StateManager.swift in Sources */,
 				AB9A362E286BF887004135EC /* YoutubeInter.swift in Sources */,
 				AB2C67C9287DB3F4007F6540 /* ConfigState.swift in Sources */,
 				AB9A3602286BF861004135EC /* ViewController.swift in Sources */,
@@ -627,17 +630,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		AB9A3630286D02FF004135EC /* XCRemoteSwiftPackageReference "YoutubeDL-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kewlbear/YoutubeDL-iOS.git";
-			requirement = {
-				kind = exactVersion;
-				version = 0.0.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = AB9A35F2286BF860004135EC /* Project object */;
 }
