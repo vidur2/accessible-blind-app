@@ -8,6 +8,7 @@ import (
 	"github.com/mjibson/go-dsp/fft"
 	wav "github.com/mjibson/go-dsp/wav"
 	"github.com/mjibson/go-dsp/window"
+	yingo "github.com/mrnikho/yingo"
 	ffmpeg_go "github.com/u2takey/ffmpeg-go"
 	"github.com/vidur2/blindOsuBackend/types"
 )
@@ -47,6 +48,21 @@ func GenerateCoordPoints() ([]types.RelativeModelCoord, error) {
 	}
 
 	return modelCoords, nil
+}
+
+func yingoUse() {
+	f, _ := os.Open("../audio.wav")
+	yin := yingo.Yin{}
+	pcm, _ := wav.New(f)
+	yin.YinInit(100, .7)
+	thing, _ := pcm.ReadSamples(pcm.Samples)
+	fmt.Println(pcm.Samples)
+	thingFinal := thing.([]int16)
+	// fmt.Println(thingFinal)
+	thingSlice := thingFinal[1000000:1000100]
+	fmt.Println(len(thingSlice))
+	pitch := yin.GetPitch(&thingSlice)
+	fmt.Println(pitch)
 }
 
 func getFreq(wav *wav.Wav) []types.AbsModelCoord {
