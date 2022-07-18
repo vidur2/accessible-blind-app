@@ -38,6 +38,33 @@ func handler(ctx *fasthttp.RequestCtx) {
 			ctx.Response.AppendBody(final)
 		}
 
+	case "/get_video_yin":
+		var req types.VideoReq
+
+		_ = json.Unmarshal(ctx.Request.Body(), &req)
+		res, _ := videogethandler.GetVideo(req)
+		videomodelgen.TransposeMp3File()
+		game, err := videomodelgen.YingoUse()
+
+		if err != nil {
+			handleError(ctx, err)
+		} else {
+			parsed := types.VideoResYin{
+				PitchCoords: game,
+				Base64Url:   res,
+			}
+
+			parsed.TranslateToRelative()
+
+			final, err := json.Marshal(parsed)
+
+			if err != nil {
+				handleError(ctx, err)
+			}
+
+			ctx.Response.AppendBody(final)
+		}
+
 	default:
 		ctx.Response.SetStatusCode(fasthttp.StatusNotFound)
 		ctx.Response.AppendBodyString("Not found")

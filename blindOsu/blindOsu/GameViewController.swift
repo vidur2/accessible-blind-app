@@ -11,7 +11,7 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    var res: VideoRes?;
+    var res: VideoResYin?;
     var score: Int?;
     
     override func viewDidLoad() {
@@ -20,9 +20,9 @@ class GameViewController: UIViewController {
     
         do {
             // Do any additional setup after loading the view.
-            self.res = YoutubeMp3.shared.getVideoAsMp3()
+            self.res = YoutubeMp3.shared.getVideoYin()
             
-            try YoutubeMp3.shared.playSong(dataUrl: self.res!)
+            try YoutubeMp3.shared.playSong(dataUrl: self.res!.base64_url)
             print("Playing")
             
         } catch {
@@ -33,7 +33,7 @@ class GameViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let score = SongScoreUtil(controller: self, radius: 0.1, time: 1);
         if player!.isPlaying {
-            score.scoreSong(gameData: self.res!.model_coord, touches: touches)
+            score.scoreSongYin(gameData: self.res!.pitch_coordinate, touches: touches)
         }
         self.score! += score.score
     }

@@ -50,7 +50,10 @@ func GenerateCoordPoints() ([]types.RelativeModelCoord, error) {
 	return modelCoords, nil
 }
 
-func yingoUse() ([]float32, error) {
+func YingoUse() ([]types.PitchCoordinate, error) {
+
+	defer os.Remove("../audio.wav")
+
 	f, err := os.Open("../audio.wav")
 
 	if err != nil {
@@ -69,13 +72,13 @@ func yingoUse() ([]float32, error) {
 	samplesCasted := samplesInt.([]int16)
 	// fmt.Println(thingFinal)
 
-	pitches := make([]float32, 0)
-	i := 0
-	for i < pcm.Samples-100 {
+	pitches := make([]types.PitchCoordinate, 0)
+	i := uint32(0)
+	for i < uint32(pcm.Samples-100) {
 		slice := samplesCasted[i : i+100]
 		i += 100
 		pitch := yin.GetPitch(&slice)
-		pitches = append(pitches, pitch)
+		pitches = append(pitches, types.PitchCoordinate{Pitch: pitch, Time: float32(i / pcm.SampleRate)})
 	}
 	return pitches, nil
 }

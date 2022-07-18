@@ -22,6 +22,16 @@ struct RelativeModelCoord: Decodable {
         time: Double
 }
 
+struct VideoResYin: Decodable {
+    let pitch_coordinate: [PitchCoordinate],
+        base64_url: String
+}
+
+struct PitchCoordinate: Decodable{
+    let time: Double,
+        pitch: Double
+}
+
 
 class YoutubeMp3 {
     let backendUri = "http://localhost:5001"
@@ -48,8 +58,26 @@ class YoutubeMp3 {
         }
     }
     
-    func playSong(dataUrl: VideoRes) throws {
-        let data = Data(base64Encoded: dataUrl.base64_url)
+    func getVideoYin() -> VideoResYin {
+        let videoId = ConfigState.shared.getSong();
+        
+        let parameters: [String: String?] = [
+            "video_id": videoId,
+        ]
+        
+        let res = self.sendRequest(path: "/get_video_yin", params: parameters)
+        
+        if res != nil {
+            let userDataRes = try! JSONDecoder().decode(VideoResYin.self, from: res!)
+            
+            return userDataRes
+        } else {
+            return self.getVideoYin()
+        }
+    }
+    
+    func playSong(dataUrl: String) throws {
+        let data = Data(base64Encoded: dataUrl)
         
         if let dataUw = data {
             do {
@@ -66,7 +94,7 @@ class YoutubeMp3 {
         let data = backend.getVideoAsMp3()
         
         do {
-            try backend.playSong(dataUrl: data)
+            try backend.playSong(dataUrl: data.base64_url)
             print("Playing")
         } catch {
             print(error.localizedDescription)

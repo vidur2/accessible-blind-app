@@ -35,10 +35,25 @@ class SongScoreUtil {
                 if player!.currentTime <= coord.time && player!.currentTime > prevCoord {
                     if self.checkIfValidTouch(coord: coord, touches: touches) {
                         self.score += 1;
-                        Thread.sleep(forTimeInterval: 1)
+                        prevCoord = coord.time
+                        break
                     }
                 }
-                prevCoord = coord.time
+            }
+        }
+    }
+    
+    func scoreSongYin(gameData: [PitchCoordinate], touches: Set<UITouch>) {
+        while player!.isPlaying {
+            var prevTime: Double = 0.0
+            for coord in gameData {
+                if player!.currentTime <= coord.time && player!.currentTime > prevTime {
+                    if self.checkIfValidTouchYin(coord: coord, touches: touches) {
+                        self.score += 1
+                        prevTime = coord.time
+                        break
+                    }
+                }
             }
         }
     }
@@ -58,5 +73,21 @@ class SongScoreUtil {
         }
         
         return false;
+    }
+    
+    private func checkIfValidTouchYin(coord: PitchCoordinate, touches: Set<UITouch>) -> Bool {
+        let scaledPitch = coord.pitch * screenHeight
+        
+        for touch in touches {
+            let location = touch.location(in: self.controller.view)
+            let scaledTouchY = location.y - (self.screenHeight/2)
+            let valid: Bool = abs(scaledTouchY - scaledPitch) < self.radius
+            
+            if valid {
+                return true
+            }
+        }
+        
+        return false
     }
 }
