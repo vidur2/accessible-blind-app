@@ -8,7 +8,7 @@ import (
 	"github.com/mjibson/go-dsp/fft"
 	wav "github.com/mjibson/go-dsp/wav"
 	"github.com/mjibson/go-dsp/window"
-	yingo "github.com/mrnikho/yingo"
+	"github.com/mrnikho/yingo"
 	ffmpeg_go "github.com/u2takey/ffmpeg-go"
 	"github.com/vidur2/blindOsuBackend/types"
 )
@@ -50,19 +50,34 @@ func GenerateCoordPoints() ([]types.RelativeModelCoord, error) {
 	return modelCoords, nil
 }
 
-func yingoUse() {
-	f, _ := os.Open("../audio.wav")
+func yingoUse() ([]float32, error) {
+	f, err := os.Open("../audio.wav")
+
+	if err != nil {
+		return nil, err
+	}
+
 	yin := yingo.Yin{}
-	pcm, _ := wav.New(f)
-	yin.YinInit(100, .7)
-	thing, _ := pcm.ReadSamples(pcm.Samples)
-	fmt.Println(pcm.Samples)
-	thingFinal := thing.([]int16)
+	pcm, err := wav.New(f)
+
+	if err != nil {
+		return nil, err
+	}
+
+	yin.YinInit(100, 1)
+	samplesInt, _ := pcm.ReadSamples(pcm.Samples)
+	samplesCasted := samplesInt.([]int16)
 	// fmt.Println(thingFinal)
-	thingSlice := thingFinal[1000000:1000100]
-	fmt.Println(len(thingSlice))
-	pitch := yin.GetPitch(&thingSlice)
-	fmt.Println(pitch)
+
+	pitches := make([]float32, 0)
+	i := 0
+	for i < pcm.Samples-100 {
+		slice := samplesCasted[i : i+100]
+		i += 100
+		pitch := yin.GetPitch(&slice)
+		pitches = append(pitches, pitch)
+	}
+	return pitches, nil
 }
 
 func getFreq(wav *wav.Wav) []types.AbsModelCoord {

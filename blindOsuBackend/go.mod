@@ -22,6 +22,7 @@ require (
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/kkdai/youtube/v2 v2.7.15 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
+	github.com/mrnikho/yingo v0.0.0-20160422163436-d60704a7faa2
 	github.com/prisma/prisma-client-go v0.16.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/takuoki/gocase v1.0.0 // indirect
