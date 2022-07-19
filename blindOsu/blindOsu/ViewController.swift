@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         textField.isHidden = false;
         textField.isHidden = false;
         
-        textField.placeholder = "Enter Song URL here"
+        textField.placeholder = "Enter Song URL/video title here"
         textField.sizeToFit()
         
         view.addSubview(textField)
