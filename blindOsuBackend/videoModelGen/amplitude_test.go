@@ -10,11 +10,15 @@ func TestFrequency(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	ans, err := GenerateCoordPoints()
+	ans, err := YingoUse()
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	fmt.Println(len(ans))
+	for _, t := range ans {
+		if t.Pitch != -1 {
+			fmt.Println(t)
+		}
+	}
 }

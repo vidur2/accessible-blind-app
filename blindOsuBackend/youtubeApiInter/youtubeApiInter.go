@@ -12,6 +12,7 @@ import (
 const BASE_URL = "https://www.googleapis.com/youtube/v3/search?key=%v&q=%v&maxResults=1"
 
 func GetVideoUrl(title string) (string, error) {
+	title = strings.ReplaceAll(title, " ", `%20`)
 	reqUrl := fmt.Sprintf(BASE_URL, os.Getenv("KEY"), title)
 	client := util.GetClient()
 	req := fasthttp.AcquireRequest()
@@ -28,8 +29,6 @@ func GetVideoUrl(title string) (string, error) {
 	strResp := string(res.Body())
 
 	videoId := strings.Split(strings.Split(strResp, "\"videoId\":")[1], "\"")[1]
-
-	fmt.Println(videoId)
 
 	return videoId, nil
 }

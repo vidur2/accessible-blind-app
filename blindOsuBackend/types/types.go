@@ -12,8 +12,7 @@ type VideoReq struct {
 
 func (v *VideoReq) TranslateVideoId() error {
 	if len(v.VideoId) != 11 || len(strings.Split(v.VideoId, " ")) > 1 {
-		newStr := strings.ReplaceAll(v.VideoId, " ", `%20`)
-		id, err := youtubeapiinter.GetVideoUrl(newStr)
+		id, err := youtubeapiinter.GetVideoUrl(v.VideoId)
 		if err != nil {
 			return err
 		}

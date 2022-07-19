@@ -9,6 +9,6 @@ import (
 
 func TestList(t *testing.T) {
 	godotenv.Load("../.env")
-	id, _ := GetVideoUrl(`pray%20for%20em`)
+	id, _ := GetVideoUrl("pray for em")
 	fmt.Println(id)
 }
