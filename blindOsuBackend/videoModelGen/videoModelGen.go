@@ -4,7 +4,6 @@ package videomodelgen
 import (
 	"fmt"
 	"os"
-	"reflect"
 
 	"github.com/mjibson/go-dsp/fft"
 	wav "github.com/mjibson/go-dsp/wav"
@@ -71,6 +70,8 @@ func YingoUse() ([]types.PitchCoordinate, error) {
 	samplesCasted := samplesInt.([]int16)
 	// fmt.Println(thingFinal)
 
+	sampleRate := float64(pcm.Samples) / pcm.Duration.Seconds()
+
 	pitches := make([]types.PitchCoordinate, 0)
 	i := uint32(0)
 	for i < uint32(pcm.Samples-100) {
@@ -78,18 +79,10 @@ func YingoUse() ([]types.PitchCoordinate, error) {
 		yin.YinInit(100, 1)
 		slice := samplesCasted[i : i+100]
 		pitch := yin.GetPitch(&slice)
-		if i == 100000 {
-			slice2 := samplesCasted[100000 : 100000+100]
-			fmt.Println(reflect.DeepEqual(slice, slice2))
-			pitch := yin.GetPitch(&slice)
-			fmt.Println(pitch)
-			pitch = yin.GetPitch(&slice2)
-			fmt.Println(pitch)
-		}
 		i += 100
 		// fmt.Println(pitch)
 		if pitch != -1 {
-			pitches = append(pitches, types.PitchCoordinate{Pitch: pitch, Time: float32(i / pcm.SampleRate)})
+			pitches = append(pitches, types.PitchCoordinate{Pitch: pitch, Time: float32(i) / float32(sampleRate)})
 		}
 	}
 	return pitches, nil
