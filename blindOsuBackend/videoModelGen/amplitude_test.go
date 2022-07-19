@@ -17,8 +17,6 @@ func TestFrequency(t *testing.T) {
 	}
 
 	for _, t := range ans {
-		if t.Pitch != -1 {
-			fmt.Println(t)
-		}
+		fmt.Println(t)
 	}
 }
