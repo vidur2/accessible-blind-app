@@ -80,7 +80,7 @@ class SongScoreUtil {
         
         for touch in touches {
             let location = touch.location(in: self.controller.view)
-            let scaledTouchY = location.y - (self.screenHeight/2)
+            let scaledTouchY = self.screenHeight - location.y
             let valid: Bool = abs(scaledTouchY - scaledPitch) < self.radius
             
             if valid {

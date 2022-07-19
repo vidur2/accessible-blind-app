@@ -13,8 +13,12 @@ class ConfigState {
     static let shared = ConfigState()
     
     func setSong(song: String) {
-        let videoId = song.split(separator: "=")[1]
-        self.songChoice = String(videoId)
+        if song.starts(with: "https://") {
+            let videoId = song.split(separator: "=")[1]
+            self.songChoice = String(videoId)
+        } else {
+            self.songChoice = song
+        }
     }
     
     func getSong() -> String? {

@@ -1,7 +1,25 @@
 package types
 
+import (
+	"strings"
+
+	youtubeapiinter "github.com/vidur2/blindOsuBackend/youtubeApiInter"
+)
+
 type VideoReq struct {
 	VideoId string `json:"video_id"`
+}
+
+func (v *VideoReq) TranslateVideoId() error {
+	if len(v.VideoId) != 11 || len(strings.Split(v.VideoId, " ")) > 1 {
+		id, err := youtubeapiinter.GetVideoUrl(v.VideoId)
+		if err != nil {
+			return err
+		}
+		v.VideoId = id
+	}
+
+	return nil
 }
 
 type VideoRes struct {

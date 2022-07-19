@@ -17,6 +17,9 @@ func handler(ctx *fasthttp.RequestCtx) {
 	case "/get_video":
 		var req types.VideoReq
 		_ = json.Unmarshal(ctx.Request.Body(), &req)
+
+		_ = req.TranslateVideoId()
+
 		res, _ := videogethandler.GetVideo(req)
 		videomodelgen.TransposeMp3File()
 		game, err := videomodelgen.GenerateCoordPoints()
@@ -42,6 +45,9 @@ func handler(ctx *fasthttp.RequestCtx) {
 		var req types.VideoReq
 
 		_ = json.Unmarshal(ctx.Request.Body(), &req)
+
+		req.TranslateVideoId()
+
 		res, _ := videogethandler.GetVideo(req)
 		videomodelgen.TransposeMp3File()
 		game, err := videomodelgen.YingoUse()
