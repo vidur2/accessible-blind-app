@@ -68,6 +68,7 @@ func YingoUse() ([]types.PitchCoordinate, error) {
 
 	samplesInt, _ := pcm.ReadSamples(pcm.Samples)
 	samplesCasted := samplesInt.([]int16)
+	fmt.Println(pcm.Samples)
 	// fmt.Println(thingFinal)
 
 	sampleRate := float64(pcm.Samples) / pcm.Duration.Seconds()

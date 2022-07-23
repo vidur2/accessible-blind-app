@@ -34,7 +34,7 @@ struct PitchCoordinate: Decodable{
 
 
 class YoutubeMp3 {
-    let backendUri = "http://localhost:5001"
+    let backendUri = "http://192.168.1.21:5001"
     private var res: Data? = nil;
     
     static let shared = YoutubeMp3()
@@ -67,13 +67,10 @@ class YoutubeMp3 {
         
         let res = self.sendRequest(path: "/get_video_yin", params: parameters)
         
-        if res != nil {
-            let userDataRes = try! JSONDecoder().decode(VideoResYin.self, from: res!)
-            
-            return userDataRes
-        } else {
-            return self.getVideoYin()
-        }
+        let userDataRes = try! JSONDecoder().decode(VideoResYin.self, from: res!)
+        print(userDataRes.pitch_coordinate[0])
+        return userDataRes
+    
     }
     
     func playSong(dataUrl: String) throws {
@@ -142,16 +139,25 @@ class YoutubeMp3 {
             let decoded = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             request.httpBody = decoded
             
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = 180.0
+            sessionConfig.timeoutIntervalForResource = 180.0
+            
             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                 if error != nil {
                     print("Error: \(error!)")
                 } else {
                     self.res = data!
                 }
+                semaphore.signal()
             })
             
             task.resume()
-            while !task.progress.isFinished { print("In progress...") }
+            print("waiting")
+            semaphore.wait()
+            print("Done")
             
             return true
             

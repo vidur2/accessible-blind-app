@@ -27,12 +27,12 @@ class blindOsuTests: XCTestCase {
         
         do {
             let backend = YoutubeMp3()
+            ConfigState.shared.setSong(song: "https://www.youtube.com/watch?v=olQ_f3E8OE8")
+            let data = backend.getVideoYin()
             
-            let data = backend.getVideoAsMp3(videoUrl: "https://www.youtube.com/watch?v=olQ_f3E8OE8")
+//            try backend.playSong(dataUrl: data)
             
-            try backend.playSong(dataUrl: data)
-            
-            
+            print(data.pitch_coordinate)
             print("Success")
         } catch {
             throw error

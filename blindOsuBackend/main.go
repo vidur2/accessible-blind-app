@@ -43,6 +43,7 @@ func handler(ctx *fasthttp.RequestCtx) {
 
 	case "/get_video_yin":
 		var req types.VideoReq
+		fmt.Println("req recieved")
 
 		_ = json.Unmarshal(ctx.Request.Body(), &req)
 
@@ -69,6 +70,7 @@ func handler(ctx *fasthttp.RequestCtx) {
 			}
 			fmt.Println("thing")
 			ctx.Response.AppendBody(final)
+			fmt.Println("DONE")
 		}
 
 	default:
