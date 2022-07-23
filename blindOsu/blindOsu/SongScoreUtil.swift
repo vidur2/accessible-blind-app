@@ -44,15 +44,13 @@ class SongScoreUtil {
     }
     
     func scoreSongYin(gameData: [PitchCoordinate], touches: Set<UITouch>) {
-        while player!.isPlaying {
-            var prevTime: Double = 0.0
-            for coord in gameData {
-                if player!.currentTime <= coord.time && player!.currentTime > prevTime {
-                    if self.checkIfValidTouchYin(coord: coord, touches: touches) {
-                        self.score += 1
-                        prevTime = coord.time
-                        break
-                    }
+        var prevTime: Double = 0.0
+        for coord in gameData {
+            if player!.currentTime <= coord.time && player!.currentTime > prevTime {
+                if self.checkIfValidTouchYin(coord: coord, touches: touches) {
+                    self.score += 1
+                    prevTime = coord.time
+                    break
                 }
             }
         }

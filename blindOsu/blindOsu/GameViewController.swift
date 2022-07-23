@@ -31,10 +31,15 @@ class GameViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("Touch registered")
         let score = SongScoreUtil(controller: self, radius: 0.1, time: 1);
         if player!.isPlaying {
             score.scoreSongYin(gameData: self.res!.pitch_coordinate, touches: touches)
+        } else {
+            let stateManager = StateManager(viewController: self, initState: .gameView)
+            stateManager.transition(to: .initView)
         }
+        print(self.score)
         self.score! += score.score
     }
 }

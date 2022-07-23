@@ -67,7 +67,7 @@ func handler(ctx *fasthttp.RequestCtx) {
 			if err != nil {
 				handleError(ctx, err)
 			}
-
+			fmt.Println("thing")
 			ctx.Response.AppendBody(final)
 		}
 

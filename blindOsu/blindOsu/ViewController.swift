@@ -22,7 +22,8 @@ class ViewController: UIViewController {
         submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
         
         textField.isHidden = false;
-        textField.isHidden = false;
+        submitButton.isEnabled = true;
+        submitButton.isHidden = false;
         
         textField.placeholder = "Enter Song URL/video title here"
         textField.sizeToFit()
@@ -41,6 +42,7 @@ class ViewController: UIViewController {
     
     @IBAction func submitForm() {
         if let url = textField.text {
+            submitButton.isEnabled = false
             textField.isHidden = true;
             submitButton.isHidden = true;
             print("Shit")
